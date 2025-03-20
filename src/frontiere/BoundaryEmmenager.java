@@ -24,19 +24,11 @@ public class BoundaryEmmenager {
 				switch (choixUtilisateur) {
 				case 1:
 					emmenagerDruide(nomVisiteur);
-					System.out.println("Bienvenue druide " + nomVisiteur);
-					int forceDruide = Clavier.entrerEntier("Quelle est votre force ?");
-					
-					
-				do {
-					
-				} while(druide.effetPotionMin < druide.effetPotionMax)
-				
 					break;
-
+					
+				
 				case 2:
-					System.out.println("Bienvenue villageois " + nomVisiteur);
-					int force = Clavier.entrerEntier("Quelle est votre force ?");
+					emmenagerGaulois(nomVisiteur);
 					break;
 
 				default:
@@ -49,6 +41,45 @@ public class BoundaryEmmenager {
 	}
 
 	private void emmenagerDruide(String nomVisiteur) {
+		System.out.println("Bienvenue druide " + nomVisiteur);
+		StringBuilder question = new StringBuilder();
+		question.append("Quelle est votre force ? \n");
+		int forceDruide = -1;
+		forceDruide = Clavier.entrerEntier(question.toString());
+		
+		StringBuilder question1 = new StringBuilder();
+		StringBuilder question2 = new StringBuilder();
+		question1.append("Quelle est la force de potion la plus faible que vous produisez ?");
+		question2.append("Quelle est la force de potion la plus forte que vous produisez ?");
+		int effetPotionMin;
+		int effetPotionMax;
+		do {
+			
+			
+			 effetPotionMin =  Clavier.entrerEntier(question1.toString());
+			 effetPotionMax =  Clavier.entrerEntier(question2.toString());
+			 
+			if (effetPotionMax < effetPotionMin) {
+				System.out.println("Attention Druide, vous vous êtes trompé entre le minimum et le maximum\n");
+			}
+
+		} while (effetPotionMax < effetPotionMin); 
+		
+		controlEmmenager.ajouterDruide(nomVisiteur, forceDruide, effetPotionMin, effetPotionMax);
+
 		
 	}
+	
+private void emmenagerGaulois(String nomVisiteur) {
+	System.out.println("Bienvenue villageois " + nomVisiteur);
+	StringBuilder question = new StringBuilder();
+	question.append("Quelle est votre force ? \n");
+	int forceGaulois = -1;
+	forceGaulois = Clavier.entrerEntier(question.toString());
+	controlEmmenager.ajouterGaulois(nomVisiteur, forceGaulois);
+
+		
+	}
+	
+	
 }
